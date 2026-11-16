@@ -1,12 +1,12 @@
-const { test, expect } = require('@playwright/test');
-const { DemoblazeLoginPage } = require('./pages/demoblazeLoginPage');
+import { test, expect } from '@playwright/test';
+import { loginpage } from './pages/loginpage.js';
 
 test('Login to DemoBlaze through a page object', async ({ page }) => {
-  const loginPage = new DemoblazeLoginPage(page);
+  const loginPage = new loginpage(page);
 
-  await loginPage.gotoHomePage();
-  await loginPage.login('pavanol', 'test@123');
-  await loginPage.verifyHomepageContext('pavanol');
+  await loginPage.launchapplication();
+  await loginPage.login();
 
+  await expect(page.locator('#nameofuser')).toContainText('pavanol');
   await expect(page.locator('#logout2')).toBeVisible();
 });
